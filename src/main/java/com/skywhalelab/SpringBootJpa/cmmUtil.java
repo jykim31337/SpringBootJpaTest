@@ -10,6 +10,7 @@ public final class cmmUtil {
 //	public static final String DB_VARCHAR = "varchar";
 //	public static final String DB_SYSDATE = "sysdate()";
 	
+//	h2database
 	public static final String DB_VARCHAR = "varchar";
 	public static final String DB_SYSDATE = "current_timestamp()";
 	
