@@ -56,10 +56,31 @@ public class Test {
 	@ColumnDefault("'N'")
 	private String delYn;
 
+	/* Not included in [Insert SQL] syntax due to @DynamicInsert annotation when value is null
+	 * Error if spring-boot-starter-validation is not present (i.e. it tries to check for validation even though it is not included in the Insert syntax)
+	 */
 	@Column(length = 320, nullable = false)
 	@ColumnDefault("'system'")
 	private String usrId;
-
+	
+	/* No error occurs with or without spring-boot-starter-validation because the field itself has a default value */
+	/*
+	@Column(length = 320, nullable = false)
+	@ColumnDefault("'system'")
+	@Builder.Default
+	private String usrId = "system";
+	*/
+	
+	/* For example, this column behaves as follows when null.
+     * without spring-boot-starter-validation, it will be checked for not-null and an error will be thrown. Same behaviour as above.
+     * If spring-boot-starter-validation is present, it is not included in the Insert syntax due to the @DynamicInsert annotation.
+     * However, the table column is not assigned Default, so an error is thrown. 
+	 */ 
+	/*
+	@Column(nullable = false)
+	private String testColumn;
+	*/
+	
 	@Column(insertable = false, updatable = false, nullable = false)
 	@ColumnDefault(cmmUtil.DB_SYSDATE)
 	private Date creDt;
